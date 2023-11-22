@@ -14,7 +14,8 @@ class AuthController extends Controller
         $validation = Validator::make($request->all(), [
             "name" => "required",
             "username" => "required|unique:users,username",
-            "password" => "required"
+            "password" => "required",
+            "roles" => "required"
         ]);
 
         if ($validation->fails()) {
@@ -22,9 +23,10 @@ class AuthController extends Controller
         }
 
         $data = [
-            "name" => $request->name,
+            "nama" => $request->name,
             "username" => $request->username,
-            "password" => $request->password
+            "password" => $request->password,
+            "roles_id" => $request->roles   
         ];
 
         Hash::make($data["password"]);
@@ -57,7 +59,7 @@ class AuthController extends Controller
 
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
-                $token = $user->createToken()->plainTextToken;
+                $token = $user->createToken("auth_token")->plainTextToken;
 
                 return response()->json([
                     "message" => "login berhasil",

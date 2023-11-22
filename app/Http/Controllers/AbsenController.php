@@ -17,7 +17,7 @@ class AbsenController extends Controller
 
         return response()->json([
             "message" => "data berhasil didapatkan",
-            "data" => $absen
+            "data" => $absen / 50 * 100 . "%"
         ], 200);
     }
 
