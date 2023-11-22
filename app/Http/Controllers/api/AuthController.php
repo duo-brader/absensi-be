@@ -13,7 +13,7 @@ class AuthController extends Controller
     function Register(Request $request) {
         $validation = Validator::make($request->all(), [
             "name" => "required",
-            "nip" => "required|unique:users,NIP",
+            "username" => "required|unique:users,username",
             "password" => "required"
         ]);
 
@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         $data = [
             "name" => $request->name,
-            "NIP" => $request->nip,
+            "username" => $request->username,
             "password" => $request->password
         ];
 
@@ -45,7 +45,7 @@ class AuthController extends Controller
 
     function Login(Request $request) {
         $validation = Validator::make($request->all(), [
-            "nip" => "required",
+            "username" => "required",
             "password" => "required"
         ]);
         
@@ -53,7 +53,7 @@ class AuthController extends Controller
             return response()->json($validation->errors(), 401);
         }
 
-        $user = User::firstWhere("NIP", $request->nip);
+        $user = User::firstWhere("username", $request->username);
 
         if ($user) {
             if (Hash::check($request->password, $user->password)) {

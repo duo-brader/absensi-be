@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("roles_id");
+            $table->unsignedBigInteger("mapel_id")->nullable();
             $table->string('nama');
-            $table->string("NIP");
+            $table->string("username");
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign("roles_id")->references("id")->on("roles");
+            $table->foreign("mapel_id")->references("id")->on("mapels");
         });
     }
 
