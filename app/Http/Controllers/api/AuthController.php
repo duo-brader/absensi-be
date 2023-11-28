@@ -3,64 +3,36 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\LoginResource;
+use App\Http\Resources\RegisterResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    function Register(Request $request) {
-        $validation = Validator::make($request->all(), [
-            "name" => "required",
-            "username" => "required|unique:users,username",
-            "password" => "required",
-            "roles" => "required"
-        ]);
-
-        if ($validation->fails()) {
-            return response()->json($validation->errors(), 401);
-        }
-
-        $data = [
-            "nama" => $request->name,
-            "username" => $request->username,
-            "password" => $request->password,
-            "roles_id" => $request->roles   
-        ];
+    function Register(RegisterRequest $request) : RegisterResource {
+        $data = $request->validated();
 
         Hash::make($data["password"]);
 
         $user = User::create($data);
 
-        if ($user) {
-            return response()->json([
-                "message" => "Register sukses",
-                "user" => $user
-            ], 201);
-        } else {
-            return response()->json([
-                "message" => "register failed"
-            ], 401);
-        }
+        return new RegisterResource($user);
     }
 
-    function Login(Request $request) {
-        $validation = Validator::make($request->all(), [
-            "username" => "required",
-            "password" => "required"
-        ]);
-        
-        if ($validation->fails()) {
-            return response()->json($validation->errors(), 401);
-        }
+    function Login(LoginRequest $request)  {
+        $data = $request->validated();
 
-        $user = User::firstWhere("username", $request->username);
+        $user = User::firstWhere("username", $data["username"]);
 
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken("auth_token")->plainTextToken;
-
                 return response()->json([
                     "message" => "login berhasil",
                     "data" => [
@@ -78,14 +50,21 @@ class AuthController extends Controller
                 "message" => "Akun tidak terdaftar! Silahkan hubungi admin"
             ], 404);
         }
+
     }
 
     function Logout(Request $request) {
-        $request->user()->currentAccessTokens()->delete();
-        $request->user()->token()->delete();
+        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
 
         return response()->json([
             "message" => "Logout berhasil"
         ], 200);
+    }
+
+    function authUser() {
+        $user = Auth::user();
+
+        return response()->json($user, 200);
     }
 }

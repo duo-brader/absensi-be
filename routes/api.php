@@ -27,18 +27,22 @@ Route::prefix("/v1")->group(function () {
     Route::prefix("/auth")->group(function () {
         Route::post("/login", [AuthController::class, "Login"]);
         Route::post("/register", [AuthController::class, "Register"]);
-        Route::post("/logout", [AuthController::class, "Logout"]);
+        Route::post("/logout", [AuthController::class, "Logout"])->middleware("auth:sanctum");
     });
 
     Route::middleware("auth:sanctum")->group(function () {
+        Route::get("/profile", [AuthController::class, "authUser"]);
         Route::get("/kelas", [KelasController::class, "index"]);
         Route::get("/kelas/{id}", [KelasController::class, "show"]);
         Route::post("/kelas", [KelasController::class, "store"]);
         Route::put("/kelas/{id}", [KelasController::class, "edit"]);
-        Route::delete("/kelas/{id}", [KelasController::class, "delete"]);
+        Route::delete("/kelas/{id}", [KelasController::class, "destroy"]);
         Route::post("/absen/{kelas:id}", [AbsenController::class, "store"]);
         Route::get("/absen", [AbsenController::class, "index"]);
         Route::post("/mapel", [MapelController::class, "store"]);
         Route::get("/mapel", [MapelController::class, "index"]);
+        Route::get("/mapel/{id}", [MapelController::class, "show"]);
+        Route::put("/mapel/{id}", [MapelController::class, "edit"]);
+        Route::delete("/mapel/{id}", [MapelController::class, "destroy"]);
     });
 });

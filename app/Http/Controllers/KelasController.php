@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KelasRequest;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,18 +24,8 @@ class KelasController extends Controller
         }
     }
 
-    function store(Request $request) {
-        $validation = Validator::make($request->all(), [
-            "kelas" => "required"
-        ]);
-
-        if ($validation->fails()) {
-            return response()->json($validation->errors(), 401);
-        };
-
-        $data = [
-            "kelas" => $request->kelas
-        ];
+    function store(KelasRequest $request) {
+        $data = $request->validated();
 
         $kelas = Kelas::create($data);
 
@@ -66,12 +57,7 @@ class KelasController extends Controller
 
     function edit(Request $request, $id) {
         $kelas = Kelas::firstWhere("id", $id);
-        
-        $data = [
-            "kelas" => $request->kelas
-        ];
-
-        $kelas->update($data);
+        $kelas->update(["kelas" => $request->kelas]);
         $kelas->save();
 
         return response()->json([

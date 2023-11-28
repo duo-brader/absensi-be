@@ -25,7 +25,7 @@ class MapelController extends Controller
 
     function store(Request $request) {
         $validation = Validator::make($request->all(), [
-            "mapel" => "required|min:8"
+            "mapel" => "required"
         ]);
 
         if ($validation->fails()) {
@@ -48,5 +48,39 @@ class MapelController extends Controller
                 "message" => "data not found",
             ], 404);
         }
+    }
+
+    function show($id) {
+        $mapel = Mapel::firstWhere("id", $id);
+
+        if ($mapel) {
+            return response()->json([
+                "message" => "data ditemukan",
+                "mapel" => $mapel
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "data tidak ditemukan"
+            ], 404);
+        }
+    }
+
+    function edit(Request $request, $id) {
+        $mapel = Mapel::firstWhere("id", $id);
+        $mapel->update(["mapel" => $request->mapel]);
+        $mapel->save();
+
+        return response()->json([
+            "message" => "data berhasil diubah"
+        ], 200);
+    }
+
+    function destroy($id) {
+        $mapel = Mapel::firstWhere("id", $id);        
+        $mapel->delete();
+
+        return response()->json([
+            "message" => "data berhasil dihapus"
+        ], 200);
     }
 }
