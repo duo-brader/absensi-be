@@ -13,9 +13,11 @@ class AbsenController extends Controller
     function index()
     {
         $user = Auth::user();
-        $role = $user->roles_id;
+        $totalAbsenGuruUmum = Absen::where("user_id", $user->id)->where("roles_id", 2)->count();
+        $totalAbsenGuruProduktif = Absen::where("user_id", $user->id)->where("roles_id", 3)->count();
 
-        $totalAbsen = Absen::where("user_id", $user->id)->count();
+        $totalAbsen = $totalAbsenGuruUmum + $totalAbsenGuruProduktif;
+        $role = User::all("roles_id");
 
         $persentase = ($totalAbsen / 50) * 100;
 
@@ -28,7 +30,6 @@ class AbsenController extends Controller
             ],
         ], 200);
     }
-
 
 
     function store(Kelas $kelas) {
