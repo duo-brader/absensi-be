@@ -46,7 +46,7 @@ class KelasController extends Controller
         if ($kelas) {
             return response()->json([
                 "message" => "data ditemukan",
-                "kelas" => $kelas
+                "kelas" => $kelas->load("absen")
             ], 200);
         } else {
             return response()->json([
