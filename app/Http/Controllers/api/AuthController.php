@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    function Register(RegisterRequest $request) : RegisterResource {
+    function Register(RegisterRequest $request): RegisterResource
+    {
         $data = $request->validated();
 
         Hash::make($data["password"]);
@@ -25,7 +26,8 @@ class AuthController extends Controller
         return new RegisterResource($user);
     }
 
-    function Login(LoginRequest $request)  {
+    function Login(LoginRequest $request)
+    {
         $data = $request->validated();
 
         $user = User::firstWhere("username", $data["username"]);
@@ -53,7 +55,8 @@ class AuthController extends Controller
 
     }
 
-    function Logout(Request $request) {
+    function Logout(Request $request)
+    {
         $request->user()->currentAccessToken()->delete();
         $request->user()->tokens()->delete();
 
@@ -62,9 +65,27 @@ class AuthController extends Controller
         ], 200);
     }
 
-    function authUser() {
+    function authUser()
+    {
         $user = Auth::user();
 
         return response()->json($user, 200);
+    }
+
+    //sementara tempat code dibawah
+    function index()
+    {
+        $user = User::all();
+
+        if ($user) {
+            return response()->json([
+                "message" => "data user found",
+                "user" => $user
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "data not found",
+            ], 404);
+        }
     }
 }

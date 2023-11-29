@@ -33,6 +33,7 @@ Route::prefix("/v1")->group(function () {
 
     Route::middleware("auth:sanctum")->group(function () {
         Route::get("/profile", [AuthController::class, "authUser"]);
+        Route::get("/user", [AuthController::class, "index"]);
         Route::get("/kelas", [KelasController::class, "index"]);
         Route::get("/kelas/{id}", [KelasController::class, "show"]);
         Route::post("/kelas", [KelasController::class, "store"]);
