@@ -12,12 +12,10 @@ class AbsenController extends Controller
 {
     function index()
     {
-        $user = Auth::user();
-        $totalAbsenGuruUmum = Absen::where("user_id", $user->id)->where("roles_id", 2)->count();
-        $totalAbsenGuruProduktif = Absen::where("user_id", $user->id)->where("roles_id", 3)->count();
+        $totalAbsenGuruUmum = Absen::where("roles_id", 2)->count();
+        $totalAbsenGuruProduktif = Absen::where("roles_id", 3)->count();
 
         $totalAbsen = $totalAbsenGuruUmum + $totalAbsenGuruProduktif;
-        $role = User::all("roles_id");
 
         $persentase = ($totalAbsen / 50) * 100;
 
@@ -26,16 +24,17 @@ class AbsenController extends Controller
             "data" => [
                 "totalAbsen" => $totalAbsen,
                 "persentase" => $persentase,
-                "role" => $role,
             ],
         ], 200);
     }
 
 
+
+
     function store(Kelas $kelas) {
         $user = Auth::user();
         $data = [
-            "user_id" => $user->id,
+            "roles_id" => $user->roles_id,
             "kelas_id" => $kelas->id
         ];
 
