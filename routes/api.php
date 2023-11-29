@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\admin\AbsenController as AdminAbsenController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
@@ -44,5 +45,9 @@ Route::prefix("/v1")->group(function () {
         Route::get("/mapel/{id}", [MapelController::class, "show"]);
         Route::put("/mapel/{id}", [MapelController::class, "edit"]);
         Route::delete("/mapel/{id}", [MapelController::class, "destroy"]);
+
+        Route::prefix("/admin")->group(function () {
+            Route::get("/absen", [AdminAbsenController::class, "index"]);
+        });
     });
 });

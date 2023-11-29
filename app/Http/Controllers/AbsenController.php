@@ -12,29 +12,19 @@ class AbsenController extends Controller
 {
     function index()
     {
-        $totalAbsenGuruUmum = Absen::whereRelation("user", "roles_id", "=", 2)->count();
-        $totalAbsenGuruProduktif = Absen::whereRelation("user", "roles_id", "=", 3)->count();
-
-        $totalAbsen = $totalAbsenGuruUmum + $totalAbsenGuruProduktif;
-
-        $persentase = ($totalAbsen / 50) * 100;
+        $user = Auth::user();
+        $absen = Absen::where("user_id", $user->id)->get();
 
         return response()->json([
             "message" => "Data berhasil didapatkan",
-            "data" => [
-                "totalAbsen" => $totalAbsen,
-                "persentase" => $persentase,
-            ],
+            "data" => $absen
         ], 200);
     }
-
-
-
 
     function store(Kelas $kelas) {
         $user = Auth::user();
         $data = [
-            "roles_id" => $user->roles_id,
+            "user_id" => $user->id,
             "kelas_id" => $kelas->id
         ];
 
