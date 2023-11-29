@@ -10,16 +10,26 @@ use Illuminate\Support\Facades\Auth;
 
 class AbsenController extends Controller
 {
-    function index() {
+    function index()
+    {
         $user = Auth::user();
+        $role = $user->roles_id;
 
-        $absen = Absen::where("user_id", $user->id)->get()->count();
+        $totalAbsen = Absen::where("user_id", $user->id)->count();
+
+        $persentase = ($totalAbsen / 50) * 100;
 
         return response()->json([
-            "message" => "data berhasil didapatkan",
-            "data" => $absen / 50 * 100 . "%"
+            "message" => "Data berhasil didapatkan",
+            "data" => [
+                "totalAbsen" => $totalAbsen,
+                "persentase" => $persentase,
+                "role" => $role,
+            ],
         ], 200);
     }
+
+
 
     function store(Kelas $kelas) {
         $user = Auth::user();
