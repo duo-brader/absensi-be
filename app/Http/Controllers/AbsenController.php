@@ -21,13 +21,14 @@ class AbsenController extends Controller
         ], 200);
     }
 
-    function store(Kelas $kelas) {
+    function store(Kelas $kelas, Request $request) {
         $user = Auth::user();
         $data = [
             "user_id" => $user->id,
-            "kelas_id" => $kelas->id
+            "kelas_id" => $kelas->id,
+            "is_pjj" => $request->is_pjj 
         ];
-
+        
         $absen = Absen::create($data);
 
         if ($absen) {
