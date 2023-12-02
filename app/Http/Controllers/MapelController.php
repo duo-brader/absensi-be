@@ -25,7 +25,8 @@ class MapelController extends Controller
 
     function store(Request $request) {
         $validation = Validator::make($request->all(), [
-            "mapel" => "required"
+            "mapel" => "required",
+            "tipe" => "required"
         ]);
 
         if ($validation->fails()) {
@@ -33,7 +34,8 @@ class MapelController extends Controller
         }
 
         $data = [
-            "mapel" => $request->mapel
+            "mapel" => $request->mapel,
+            "tipe" => $request->tipe
         ];
 
         $mapel = Mapel::create($data);

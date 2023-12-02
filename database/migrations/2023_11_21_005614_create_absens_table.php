@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("kelas_id");
+            $table->unsignedBigInteger("mapel_id");
             $table->boolean("is_pjj");
+            $table->enum("metode_pembelajaran", ["pjj", "pkk"]);
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users");
             $table->foreign("kelas_id")->references("id")->on("kelas");
+            $table->foreign("mapel_id")->references("id")->on("mapels");
         });
     }
 

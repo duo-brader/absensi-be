@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\AbsenController as AdminAbsenController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,7 @@ Route::prefix("/v1")->group(function () {
     });
 
     Route::middleware("auth:sanctum")->group(function () {
+        Route::get("/user", [UserController::class, "index"]);
         Route::get("/profile", [AuthController::class, "authUser"]);
         Route::get("/kelas", [KelasController::class, "index"]);
         Route::get("/kelas/{id}", [KelasController::class, "show"]);

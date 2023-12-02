@@ -22,7 +22,7 @@ class KelasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "kelas" => "required"
+            "kelas" => "required",
         ];
     }
 }
