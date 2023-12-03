@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\admin\AbsenController as AdminAbsenController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\UserController;
@@ -50,6 +51,9 @@ Route::prefix("/v1")->group(function () {
 
         Route::prefix("/admin")->group(function () {
             Route::get("/absen", [AdminAbsenController::class, "index"]);
+            Route::get("/jurusan", [JurusanController::class, "index"]);
+            Route::get("/mapel", [MapelController::class, "index"]);
+            Route::get("/roles", [AuthController::class, "indexRoles"]);
         });
     });
 });

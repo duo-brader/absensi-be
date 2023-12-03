@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\RegisterResource;
+use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,5 +67,11 @@ class AuthController extends Controller
         $user = Auth::user();
 
         return response()->json($user, 200);
+    }
+
+    function indexRoles() {
+        $roles = Roles::all();
+
+        return $roles;
     }
 }

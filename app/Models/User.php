@@ -50,4 +50,8 @@ class User extends Authenticatable
     function mapel() : HasMany {
         return $this->hasMany(Mapel::class, "mapel_id");
     }
+
+    function jurusan() : HasMany {
+        return $this->hasMany(Jurusan::class, "jurusan_id");
+    }
 }

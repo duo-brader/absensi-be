@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger("kelas_id");
             $table->unsignedBigInteger("mapel_id");
             $table->boolean("is_pjj");
-            $table->enum("metode_pembelajaran", ["pjj", "pkk"]);
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users");

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("roles_id");
-            $table->unsignedBigInteger("mapel_id")->nullable();
+            $table->unsignedBigInteger("mapel_id")->nullable(true);
+            $table->unsignedBigInteger("jurusan_id")->nullable(true);
             $table->string('nama');
             $table->string("username");
             $table->string('password');
@@ -23,6 +24,7 @@ return new class extends Migration
 
             $table->foreign("roles_id")->references("id")->on("roles");
             $table->foreign("mapel_id")->references("id")->on("mapels");
+            $table->foreign("jurusan_id")->references("id")->on("jurusans");
         });
     }
 
