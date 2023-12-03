@@ -27,7 +27,7 @@ class AbsenController extends Controller
             "user_id" => $user->id,
             "kelas_id" => $kelas->id,
             "is_pjj" => $request->is_pjj,
-            "mapel_id" => $request->mapel
+            "mapel_id" => $request->mapel_id
         ];
         
         $absen = Absen::create($data);
