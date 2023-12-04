@@ -23,6 +23,7 @@ class KelasRequest extends FormRequest
     {
         return [
             "kelas" => "required",
+            "metode_pembelajaran" => "required"
         ];
     }
 }

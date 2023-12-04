@@ -15,14 +15,24 @@ class AbsenController extends Controller
 
         $totalAbsen = $totalAbsenGuruUmum + $totalAbsenGuruProduktif;
 
-        $persentase = ($totalAbsen / 50) * 100;
+        $persentaseTotal = ($totalAbsen / 50) * 100;
+        $persentaseUmum = ($totalAbsenGuruUmum / 50) * 100;
+        $persentaseProduktif = ($totalAbsenGuruProduktif / 50) * 100;
 
         return response()->json([
             "message" => "Data berhasil didapatkan",
             "data" => [
-                "totalAbsen" => $totalAbsen,
-                "persentase" => $persentase,
+                // "totalAbsen" => $totalAbsen,
+                // "persentaseTotal" => $persentaseTotal,
+                "persentaseUmum" => $persentaseUmum,
+                "persentaseProduktif" => $persent   aseProduktif,
             ],
         ], 200);
+    }
+    
+    function indexAbsen() {
+        $absen = Absen::all();
+
+        return $absen;
     }
 }

@@ -27,7 +27,9 @@ class RegisterRequest extends FormRequest
             "nama" => ["required"],
             "username" => ["required"],
             "password" => ["required"],
-            "roles_id" => ["required"]
+            "roles_id" => ["required"],
+            "mapel_id" => ["required"],
+            "jurusan_id" => ["required"]  
         ];
     }
 
