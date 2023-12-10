@@ -5,29 +5,33 @@ namespace App\Http\Controllers\admin;
 use App\Models\Absen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class AbsenController extends Controller
 {
     function index()
     {
-        $totalAbsenGuruUmum = Absen::whereRelation("user", "roles_id", "=", 2)->count();
-        $totalAbsenGuruProduktif = Absen::whereRelation("user", "roles_id", "=", 3)->count();
 
-        $totalAbsen = $totalAbsenGuruUmum + $totalAbsenGuruProduktif;
+        return User::all();
+        // $totalAbsenGuruUmum = Absen::whereRelation("user", "roles_id", "=", 2)->count();
+        // $totalAbsenGuruProduktif = Absen::whereRelation("user", "roles_id", "=", 3)->count();
 
-        $persentaseTotal = ($totalAbsen / 50) * 100;
-        $persentaseUmum = ($totalAbsenGuruUmum / 50) * 100;
-        $persentaseProduktif = ($totalAbsenGuruProduktif / 50) * 100;
+        // $pjj = User::whereRelation("absen", "metode_pembelajaran", "pjj")->count();
+        // $pkk = User::whereRelation("absen", "metode_pembelajaran", "pkk")->count();
 
-        return response()->json([
-            "message" => "Data berhasil didapatkan",
-            "data" => [
-                // "totalAbsen" => $totalAbsen,
-                // "persentaseTotal" => $persentaseTotal,
-                "persentaseUmum" => $persentaseUmum,
-                "persentaseProduktif" => $persent   aseProduktif,
-            ],
-        ], 200);
+        // $totalAbsen = $pjj + $pkk;
+
+        // $persentaseTotal = ($totalAbsen / 50) * 100;
+        // $persentaseUmum = ($pjj / 50) * 100;
+        // $persentaseProduktif = ($pkk / 50) * 100;
+
+        // return response()->json([
+        //     "message" => "Data berhasil didapatkan",
+        //     "data" => [
+        //         "persentaseUmum" => $persentaseUmum,
+        //         "persentaseProduktif" => $persentaseProduktif,
+        //     ],
+        // ], 200);
     }
     
     function indexAbsen() {

@@ -50,7 +50,8 @@ class User extends Authenticatable
     ];
 
     protected $with = [
-        "jurusan"
+        "jurusan",
+        "absen"
     ];
 
     function mapel() : HasMany {
@@ -59,5 +60,9 @@ class User extends Authenticatable
 
     function jurusan() : BelongsTo {
         return $this->BelongsTo(Jurusan::class, "jurusan_id");
+    }
+
+    function absen() : HasMany {
+        return $this->hasMany(Absen::class, "user_id");
     }
 }
