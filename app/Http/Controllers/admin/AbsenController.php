@@ -12,7 +12,7 @@ class AbsenController extends Controller
     function index()
     {
 
-        return User::all();
+        return User::with("absen")->get();
         // $totalAbsenGuruUmum = Absen::whereRelation("user", "roles_id", "=", 2)->count();
         // $totalAbsenGuruProduktif = Absen::whereRelation("user", "roles_id", "=", 3)->count();
 

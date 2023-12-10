@@ -12,12 +12,12 @@ class Absen extends Model
     protected $table = "absens";
     protected $guarded = ["id"];
 
-    protected $with = [
-        "user",
-        "waktu",
-        "mapel",
-        "kelas"
-    ];
+    // protected $with = [
+    //     "user",
+    //     "waktu",
+    //     "mapel",
+    //     "kelas"
+    // ];
 
     function user() : BelongsTo {
         return $this->belongsTo(User::class, "user_id");

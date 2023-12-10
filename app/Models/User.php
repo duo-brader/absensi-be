@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     protected $with = [
         "jurusan",
-        "absen"
+        // "absen"
     ];
 
     function mapel() : HasMany {

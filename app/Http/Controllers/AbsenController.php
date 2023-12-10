@@ -13,7 +13,7 @@ class AbsenController extends Controller
     function index()
     {
         $user = Auth::user();
-        $absen = Absen::where("user_id", $user->id)->get();
+        $absen = Absen::with(["user","waktu","mapel","kelas"])->where("user_id", $user->id)->get();
 
         return response()->json([
             "message" => "Data berhasil didapatkan",
