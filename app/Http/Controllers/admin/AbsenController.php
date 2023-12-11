@@ -16,21 +16,21 @@ class AbsenController extends Controller
             'absen as metode_pjj' => function ($query) {
                 $query->where('metode_pembelajaran', 'pjj');
             },
-            'absen as metode_pkk' => function ($query) {
-                $query->where('metode_pembelajaran', 'pkk');
+            'absen as metode_plk' => function ($query) {
+                $query->where('metode_pembelajaran', 'plk');
             },
         ])->get();
         // $totalAbsenGuruUmum = Absen::whereRelation("user", "roles_id", "=", 2)->count();
         // $totalAbsenGuruProduktif = Absen::whereRelation("user", "roles_id", "=", 3)->count();
 
         // $pjj = User::whereRelation("absen", "metode_pembelajaran", "pjj")->count();
-        // $pkk = User::whereRelation("absen", "metode_pembelajaran", "pkk")->count();
+        // $plk = User::whereRelation("absen", "metode_pembelajaran", "plk")->count();
 
-        // $totalAbsen = $pjj + $pkk;
+        // $totalAbsen = $pjj + $plk;
 
         // $persentaseTotal = ($totalAbsen / 50) * 100;
         // $persentaseUmum = ($pjj / 50) * 100;
-        // $persentaseProduktif = ($pkk / 50) * 100;
+        // $persentaseProduktif = ($plk / 50) * 100;
 
         // return response()->json([
         //     "message" => "Data berhasil didapatkan",

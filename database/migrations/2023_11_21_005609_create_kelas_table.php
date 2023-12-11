@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string("kelas");
-            $table->enum("metode_pembelajaran", ["pjj", "pkk"]);
+            $table->enum("metode_pembelajaran", ["pjj", "plk"]);
             $table->timestamps();
         });
     }
