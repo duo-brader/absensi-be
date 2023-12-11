@@ -41,14 +41,7 @@ class KelasController extends Controller
     }
 
     function show($id) {
-        $kelas = Kelas::with(["absen" => function ($query) {
-            $query->with([
-                "user",
-                "waktu",
-                "mapel",
-                "kelas"
-            ]);
-        }])->firstWhere("id", $id);
+        $kelas = Kelas::firstWhere("id", $id)->load("absen");
 
         if ($kelas) {
             return response()->json([

@@ -42,7 +42,7 @@ class AbsenController extends Controller
     }
     
     function indexAbsen() {
-        $absen = Absen::all();
+        $absen = Absen::with("user", "waktu", "kelas", "mapel")->get();
 
         return $absen;
     }
