@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string("username");
             $table->string('password');
+            $table->integer("list")->default(0);
             $table->rememberToken();
             $table->timestamps();
 
