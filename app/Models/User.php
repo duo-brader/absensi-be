@@ -54,8 +54,8 @@ class User extends Authenticatable
         // "absen"
     ];
 
-    function mapel() : HasMany {
-        return $this->hasMany(Mapel::class, "mapel_id");
+    function mapel() : BelongsTo {
+        return $this->BelongsTo(Mapel::class, "mapel_id");
     }
 
     function jurusan() : BelongsTo {

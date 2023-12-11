@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     function index() {
-        $user = User::all();
+        $user = User::all()->load("mapel");
 
         return $user;
     }
