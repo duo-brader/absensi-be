@@ -24,6 +24,12 @@ class KelasController extends Controller
         }
     }
 
+    function totalKelas() {
+        $kelas = Kelas::all()->count();
+
+        return $kelas;
+    }
+
     function store(KelasRequest $request) {
         $data = $request->validated();
 

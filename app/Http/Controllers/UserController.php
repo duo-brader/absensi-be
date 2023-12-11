@@ -12,4 +12,10 @@ class UserController extends Controller
 
         return $user;
     }
+
+    function totalUser() {
+        $user = User::all()->count();
+
+        return $user;
+    }
 }

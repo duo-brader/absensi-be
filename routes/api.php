@@ -39,8 +39,10 @@ Route::prefix("/v1")->group(function () {
 
     Route::middleware("auth:sanctum")->group(function () {
         Route::get("/user", [UserController::class, "index"]);
+        Route::get("/totalUser", [UserController::class, "totalUser"]);
         Route::get("/profile", [AuthController::class, "authUser"]);
         Route::get("/kelas", [KelasController::class, "index"]);
+        Route::get("/totalKelas", [KelasController::class, "totalKelas"]);
         Route::get("/kelas/{id}", [KelasController::class, "show"]);
         Route::post("/kelas", [KelasController::class, "store"]);
         Route::put("/kelas/{id}", [KelasController::class, "edit"]);
@@ -49,13 +51,14 @@ Route::prefix("/v1")->group(function () {
         Route::get("/absen", [AbsenController::class, "index"]);
         Route::post("/mapel", [MapelController::class, "store"]);
         Route::get("/mapel", [MapelController::class, "index"]);
+        Route::get("/totalMapel", [MapelController::class, "totalMapel"]);
         Route::get("/mapel/{id}", [MapelController::class, "show"]);
         Route::put("/mapel/{id}", [MapelController::class, "edit"]);
         Route::delete("/mapel/{id}", [MapelController::class, "destroy"]);
 
         Route::prefix("/admin")->group(function () {
             Route::get("/absen", [AdminAbsenController::class, "index"]);
-            Route::get("/total", [AdminAbsenController::class, "totalAbsen"]);
+            Route::get("/totalAbsen", [AdminAbsenController::class, "totalAbsen"]);
             Route::get("/jurusan", [JurusanController::class, "index"]);
             Route::get("/mapel", [MapelController::class, "index"]);
             Route::get("/roles", [AuthController::class, "indexRoles"]);

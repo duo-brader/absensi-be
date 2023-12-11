@@ -23,6 +23,12 @@ class MapelController extends Controller
         }
     }
 
+    function totalMapel() {
+        $mapel = Mapel::all()->count();
+
+        return $mapel;
+    }
+
     function store(Request $request) {
         $validation = Validator::make($request->all(), [
             "mapel" => "required",
