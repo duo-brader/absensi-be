@@ -13,7 +13,7 @@ class AbsenController extends Controller
     function index()
     {
         $user = Auth::user();
-        $absen = Absen::where("user_id", $user->id)->get();
+        $absen = Absen::with(["user","waktu","mapel","kelas"])->where("user_id", $user->id)->get();
 
         return response()->json([
             "message" => "Data berhasil didapatkan",
@@ -26,8 +26,9 @@ class AbsenController extends Controller
         $data = [
             "user_id" => $user->id,
             "kelas_id" => $kelas->id,
-            "is_pjj" => $request->is_pjj,
-            "mapel_id" => $request->mapel
+            "metode_pembelajaran" => $request->metode_pembelajaran,
+            "mapel_id" => $request->mapel_id,
+            "waktu_id" => $request->waktu_id
         ];
         
         $absen = Absen::create($data);

@@ -69,7 +69,7 @@ class MapelController extends Controller
 
     function edit(Request $request, $id) {
         $mapel = Mapel::firstWhere("id", $id);
-        $mapel->update(["mapel" => $request->mapel]);
+        $mapel->update(["mapel" => $request->mapel, "tipe" => $request->tipe]);
         $mapel->save();
 
         return response()->json([

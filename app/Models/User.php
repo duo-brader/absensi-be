@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,7 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         "roles_id",
-        "mapel_id"
+        "mapel_id",
+        "jurusan_id"
     ];
 
     /**
@@ -47,7 +49,20 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $with = [
+        "jurusan",
+        // "absen"
+    ];
+
     function mapel() : HasMany {
         return $this->hasMany(Mapel::class, "mapel_id");
+    }
+
+    function jurusan() : BelongsTo {
+        return $this->BelongsTo(Jurusan::class, "jurusan_id");
+    }
+
+    function absen() : HasMany {
+        return $this->hasMany(Absen::class, "user_id");
     }
 }

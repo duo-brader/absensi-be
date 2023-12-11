@@ -1,11 +1,14 @@
-<?php
+    <?php
 
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\admin\AbsenController as AdminAbsenController;
+use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WaktuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
 
 Route::prefix("/v1")->group(function () {
     // auth aman
@@ -51,6 +56,14 @@ Route::prefix("/v1")->group(function () {
 
         Route::prefix("/admin")->group(function () {
             Route::get("/absen", [AdminAbsenController::class, "index"]);
+            Route::get("/jurusan", [JurusanController::class, "index"]);
+            Route::get("/mapel", [MapelController::class, "index"]);
+            Route::get("/roles", [AuthController::class, "indexRoles"]);
+            Route::get("/waktu", [WaktuController::class, "index"]);
+            Route::get("/absens", [AdminAbsenController::class, "indexAbsen"]);
+            Route::get("/user/{id}", [AdminUserController::class, "show"]);
+            Route::put("/user/{id}", [AdminUserController::class, "update"]);
+            Route::delete("/user/{id}", [AdminUserController::class, "destory"]);
         });
     });
 });

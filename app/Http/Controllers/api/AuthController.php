@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\RegisterResource;
+use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,20 +73,9 @@ class AuthController extends Controller
         return response()->json($user, 200);
     }
 
-    //sementara tempat code dibawah
-    function index()
-    {
-        $user = User::all();
+    function indexRoles() {
+        $roles = Roles::all();
 
-        if ($user) {
-            return response()->json([
-                "message" => "data user found",
-                "user" => $user
-            ], 200);
-        } else {
-            return response()->json([
-                "message" => "data not found",
-            ], 404);
-        }
+        return $roles;
     }
 }
