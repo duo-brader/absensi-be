@@ -20,30 +20,32 @@ class AbsenController extends Controller
                 $query->where('metode_pembelajaran', 'plk');
             },
         ])->get();
-        // $totalAbsenGuruUmum = Absen::whereRelation("user", "roles_id", "=", 2)->count();
-        // $totalAbsenGuruProduktif = Absen::whereRelation("user", "roles_id", "=", 3)->count();
-
-        // $pjj = User::whereRelation("absen", "metode_pembelajaran", "pjj")->count();
-        // $plk = User::whereRelation("absen", "metode_pembelajaran", "plk")->count();
-
-        // $totalAbsen = $pjj + $plk;
-
-        // $persentaseTotal = ($totalAbsen / 50) * 100;
-        // $persentaseUmum = ($pjj / 50) * 100;
-        // $persentaseProduktif = ($plk / 50) * 100;
-
-        // return response()->json([
-        //     "message" => "Data berhasil didapatkan",
-        //     "data" => [
-        //         "persentaseUmum" => $persentaseUmum,
-        //         "persentaseProduktif" => $persentaseProduktif,
-        //     ],
-        // ], 200);
     }
     
     function indexAbsen() {
         $absen = Absen::with("user", "waktu", "kelas", "mapel")->get();
 
         return $absen;
+    }
+
+    function totalAbsen() {
+        $totalAbsenGuruUmum = Absen::whereRelation("user", "roles_id", "=", 2)->count();
+        $totalAbsenGuruProduktif = Absen::whereRelation("user", "roles_id", "=", 3)->count();
+
+        $absen = $totalAbsenGuruUmum + $totalAbsenGuruProduktif;
+
+        $totalAbsen = ($absen / 50) * 100;
+        $persentaseUmum = ($totalAbsenGuruUmum / 50) * 100;
+        $persentaseProduktif = ($totalAbsenGuruProduktif / 50) * 100;
+
+        return response()->json([
+            "message" => "Data berhasil didapatkan",
+            "data" => [
+                "totalAbsen" => $totalAbsen,
+                "persentaseUmum" => $persentaseUmum,
+                "persentaseProduktif" => $persentaseProduktif,
+            ],
+        ], 200);
+
     }
 }

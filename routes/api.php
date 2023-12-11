@@ -40,7 +40,6 @@ Route::prefix("/v1")->group(function () {
     Route::middleware("auth:sanctum")->group(function () {
         Route::get("/user", [UserController::class, "index"]);
         Route::get("/profile", [AuthController::class, "authUser"]);
-        Route::get("/user", [AuthController::class, "index"]);
         Route::get("/kelas", [KelasController::class, "index"]);
         Route::get("/kelas/{id}", [KelasController::class, "show"]);
         Route::post("/kelas", [KelasController::class, "store"]);
@@ -56,6 +55,7 @@ Route::prefix("/v1")->group(function () {
 
         Route::prefix("/admin")->group(function () {
             Route::get("/absen", [AdminAbsenController::class, "index"]);
+            Route::get("/total", [AdminAbsenController::class, "totalAbsen"]);
             Route::get("/jurusan", [JurusanController::class, "index"]);
             Route::get("/mapel", [MapelController::class, "index"]);
             Route::get("/roles", [AuthController::class, "indexRoles"]);
