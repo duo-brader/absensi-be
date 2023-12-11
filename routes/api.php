@@ -26,7 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/absen", [AdminAbsenController::class, "index"]);
 
 
 Route::prefix("/v1")->group(function () {
@@ -54,6 +53,7 @@ Route::prefix("/v1")->group(function () {
         Route::delete("/mapel/{id}", [MapelController::class, "destroy"]);
 
         Route::prefix("/admin")->group(function () {
+            Route::get("/absen", [AdminAbsenController::class, "index"]);
             Route::get("/jurusan", [JurusanController::class, "index"]);
             Route::get("/mapel", [MapelController::class, "index"]);
             Route::get("/roles", [AuthController::class, "indexRoles"]);

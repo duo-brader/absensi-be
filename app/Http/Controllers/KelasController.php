@@ -45,7 +45,8 @@ class KelasController extends Controller
             $query->with([
                 "user",
                 "waktu",
-                "mapel"
+                "mapel",
+                "kelas"
             ]);
         }])->firstWhere("id", $id);
 
