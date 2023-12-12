@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("kelas");
             $table->enum("metode_pembelajaran", ["pjj", "plk"]);
+            $table->integer("list")->default(0);
             $table->timestamps();
         });
     }

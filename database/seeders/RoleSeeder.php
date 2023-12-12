@@ -22,5 +22,8 @@ class RoleSeeder extends Seeder
         Roles::create([
             "roles" => "kepala program"
         ]);
+        Roles::create([
+            "roles" => "Guru produktif"
+        ]);
     }
 }
